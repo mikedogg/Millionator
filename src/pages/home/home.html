@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Millionator
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-item>
+      <ion-input type="number" placeholder="Startvärde" [(ngModel)]="startValue" value=""></ion-input>
+    </ion-item>
+    
+  
+    <ion-item>
+      <ion-input type="number" placeholder="Månadsspar" [(ngModel)]="monthlySavings" value=""></ion-input>
+    </ion-item>
+
+  <ion-item>
+    <ion-input type="number" placeholder="Ränta" [(ngModel)]="interest" value=""></ion-input>
+  </ion-item>
+  <ion-row>
+
+      <ion-col text-center col-12 *ngIf="numberOfYears > 0" class="total">
+          Du kommer nå miljonen om {{numberOfYears}} år och {{numberOfMonths}} månader.
+      </ion-col>
+    
+  </ion-row>
+      
+</ion-content>
+
+<ion-footer>
+    <button ion-button round color="secondary" (click)="calculateNumberOfYears()">Räkna</button>
+
+  </ion-footer>

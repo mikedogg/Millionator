@@ -1,0 +1,29 @@
+@font-face {
+    font-family: YellowTail;
+    src: url('../../assets/fonts/Yellowtail-Regular.ttf');
+}
+
+page-home {
+  
+ion-navbar.toolbar-ios {
+min-height: 60px;
+
+    ion-title .toolbar-title-ios{
+        font-family: YellowTail;
+        font-size:30px;
+    }
+}
+
+
+.total{
+    height:auto;
+}
+ion-footer{
+    padding:10px;
+    button.button-ios-secondary{
+        width:100%;
+        margin:0;
+    }
+}
+
+}
