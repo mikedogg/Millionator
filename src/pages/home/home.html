@@ -7,30 +7,48 @@
 </ion-header>
 
 <ion-content padding>
+<ion-row>
+  <div class="chartWrapper">
+    <canvas id="myChart" width="343" height="300"></canvas>
+    <div id="dollar">
+        <ion-icon name="ios-cash-outline"></ion-icon>
+        <div class="text">Calculate your future wealth</div>
+    </div>
+  </div>
+</ion-row>
+<ion-row>
 
-    <ion-item>
-      <ion-input type="number" placeholder="Startvärde" [(ngModel)]="startValue" value=""></ion-input>
+    <ion-col text-center col-12 id="totalWrapper">
+      <div id="total" class="hidden">
+          You'll reach your first million in: <br> <span class="yearsOrMonths">{{numberOfYears}}</span> years and <span class="yearsOrMonths">{{numberOfMonths}}</span> months.
+
+      </div>
+    </ion-col>
+  
+</ion-row>
+<div class="bottom-content">
+  
+</div>
+<ion-row>
+    <ion-item col-12>
+      <ion-input type="number" placeholder="Starting value" [(ngModel)]="startValue" value=""></ion-input>
     </ion-item>
     
   
-    <ion-item>
-      <ion-input type="number" placeholder="Månadsspar" [(ngModel)]="monthlySavings" value=""></ion-input>
+    <ion-item col-6>
+      <ion-input type="number" required placeholder="Monthly savings" [(ngModel)]="monthlySavings" value=""></ion-input>
     </ion-item>
 
-  <ion-item>
-    <ion-input type="number" placeholder="Ränta" [(ngModel)]="interest" value=""></ion-input>
+  <ion-item col-6>
+    <ion-input type="number" placeholder="Interest rate (%)" [(ngModel)]="interest" value=""></ion-input>
   </ion-item>
-  <ion-row>
 
-      <ion-col text-center col-12 *ngIf="numberOfYears > 0" class="total">
-          Du kommer nå miljonen om {{numberOfYears}} år och {{numberOfMonths}} månader.
-      </ion-col>
-    
-  </ion-row>
+</ion-row>
+ 
       
 </ion-content>
 
 <ion-footer>
-    <button ion-button round color="secondary" (click)="calculateNumberOfYears()">Räkna</button>
+    <button ion-button round color="secondary" (click)="calculateNumberOfYears()">Millionate me!</button>
 
   </ion-footer>

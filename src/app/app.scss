@@ -14,3 +14,98 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+@font-face {
+    font-family: YellowTail;
+    src: url('../../assets/fonts/Yellowtail-Regular.ttf');
+}
+
+  
+ion-navbar.toolbar-ios {
+min-height: 60px;
+
+    .toolbar-background{
+        background-color:rgb(125,206,160);
+
+
+    }
+
+    ion-title .toolbar-title-ios{
+        font-family: YellowTail;
+        font-size:30px;
+        color:#fff;
+    }
+}
+.chartWrapper{
+    position:relative;
+    width:100%;
+
+
+    #dollar{
+        font-size:195px;
+        position: absolute;
+        width:100%;
+        height:300px;
+        color:rgb(125,206,160);
+
+        top:0;
+        
+        text-align: center;
+
+
+        &.hide{
+            display:none;
+        }
+        .text{
+            font-size:20px;
+            color:#000;
+        }
+    }
+}
+.bottom-content{
+    width:100%;
+    position: absolute;
+    bottom:10px;
+    padding:0px 16px;
+
+    ion-item{
+        padding:0px;
+
+        input{
+            text-align: center;
+            padding:0;
+        }
+    }
+}
+
+#totalWrapper{
+    height:50px;
+ #total{
+     
+    &.hidden{
+        display:none;
+
+    }
+
+    &.visible{
+        display:block;
+    }
+    
+    .yearsOrMonths{
+        margin-top:10px;
+        color:rgb(125,206,160);
+        font-size:20px;
+    }
+}
+}
+
+ion-footer{
+    padding:10px;
+    button.button-ios-secondary{
+        width:100%;
+        margin:0;
+        background-color:rgb(125,206,160);
+    }
+}
+
+
