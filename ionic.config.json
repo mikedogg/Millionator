@@ -1,8 +1,9 @@
 {
   "name": "Millionator",
-  "app_id": "b4b7bafc",
-  "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "type": "ionic-angular",
+  "pro_id": "b4b7bafc",
+  "app_id": ""
 }

@@ -1,6 +1,6 @@
 @font-face {
-    font-family: YellowTail;
-    src: url('../../assets/fonts/Yellowtail-Regular.ttf');
+    font-family: "YellowTail";
+    src: url('../assets/fonts/Yellowtail-Regular.ttf');
 }
 
 page-home {
@@ -13,7 +13,7 @@ ion-navbar.toolbar {
     }
 
     ion-title .toolbar-title{
-        font-family: YellowTail;
+        font-family: "YellowTail"!important;
         font-size:30px;
         color:#fff;
     }
@@ -23,6 +23,10 @@ ion-navbar.toolbar {
     position:relative;
     width:100%;
 
+    #myChart{
+        width:343px; 
+        height:300px;
+    }
 
     #dollar{
         font-size:195px;
@@ -45,22 +49,18 @@ ion-navbar.toolbar {
         }
     }
 }
-.bottom-content{
-    width:100%;
-    position: absolute;
-    bottom:10px;
-    padding:0px 16px;
-    text-align: center;
     
     ion-item{
         padding:0px;
+        &.item-ios{
+            padding:0px;
 
+        }
         input{
             text-align: center;
             padding:0;
         }
     }
-}
 
 #totalWrapper{
     height:50px;
@@ -84,12 +84,45 @@ ion-navbar.toolbar {
 }
 
 ion-footer{
-    padding:10px;
-    button.button-md-secondary{
-        width:100%;
-        margin:0;
-        background-color:rgb(125,206,160);
-    }
-}
+    padding:0px;
+    height:60px;
+    // bottom:50px;
+    button{
+        &.button-md-secondary{
+            width:100%;
+            margin:0;
+            height:100%;
+            background-color:rgb(125,206,160);
+            border-radius: 0px;
+        
+            &:hover{
+                background-color:rgb(125,206,160);
+    
+            }
+        }
+        &.button-ios{
+        
+            width:100%;
+            margin:0;
+            height:100%;
+            background-color:rgb(125,206,160);
+            border-radius: 0px;
 
+            &:hover{
+                background-color:rgb(125,206,160);
+    
+            }    
+        }
+
+    }
+
+    
+}
+.googleBanner{
+    height:50px;
+    width: 100%;
+    background-color: #000;
+    position: absolute;
+    bottom:0;
+}
 }

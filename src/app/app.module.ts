@@ -6,13 +6,16 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { AdMobFree} from '@ionic-native/admob-free';
+import { AdMobFree } from '@ionic-native/admob-free';
+import { ModalPage } from '../pages/modal/modal';
+
 // import { Cordova }from 'cordova';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
+    ModalPage
   ],
   imports: [
     BrowserModule,
@@ -21,7 +24,8 @@ import { AdMobFree} from '@ionic-native/admob-free';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    ModalPage
   ],
   providers: [
     StatusBar,

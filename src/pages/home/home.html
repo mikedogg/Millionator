@@ -9,7 +9,7 @@
 <ion-content padding>
 <ion-row>
   <div class="chartWrapper">
-    <canvas id="myChart" width="343" height="300"></canvas>
+    <canvas id="myChart" height="280"></canvas>
     <div id="dollar">
         <ion-icon name="ios-cash-outline"></ion-icon>
         <div class="text">Calculate your future wealth</div>
@@ -26,9 +26,7 @@
     </ion-col>
   
 </ion-row>
-<div class="bottom-content">
-  
-</div>
+
 <ion-row>
     <ion-item col-12>
       <ion-input type="number" placeholder="Starting value" [(ngModel)]="startValue" value=""></ion-input>
@@ -36,7 +34,7 @@
     
   
     <ion-item col-6>
-      <ion-input type="number" required placeholder="Monthly savings" [(ngModel)]="monthlySavings" value=""></ion-input>
+      <ion-input type="number" required placeholder="Monthly savings" min="100" [(ngModel)]="monthlySavings" value=""></ion-input>
     </ion-item>
 
   <ion-item col-6>
@@ -44,11 +42,11 @@
   </ion-item>
 
 </ion-row>
- 
+ <!-- <img src="../../assets/imgs/octo-loader.gif" class="loader" *ngIf="!isCalculating" /> -->
       
 </ion-content>
 
 <ion-footer>
-    <button ion-button round color="secondary" (click)="calculateNumberOfYears()">Millionate me!</button>
-
-  </ion-footer>
+    <button ion-button color="secondary" (click)="calculateNumberOfYears()">Millionate me!</button>
+</ion-footer>
+<!-- <div class="googleBanner"></div> -->

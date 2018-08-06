@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import Chart from 'chart.js';
-import { AdMobFree, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free';
+import { AdMobFree, AdMobFreeInterstitialConfig, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
+import { ModalPage } from '../modal/modal';
+
 
 @Component({
   selector: 'page-home',
@@ -16,46 +18,86 @@ export class HomePage {
   totalAmount: number;
   numberOfMonths: number;
 
+
+
   numberOfYearsCeiling: number;
+  androidId = 'ca-app-pub-3216935214507444/8442350006';
+  interstitialId= 'ca-app-pub-3216935214507444/4918462996'; 
+
+  // androidId=  'ca-app-pub-3940256099942544/6300978111'; //google test
+  // interstitialId= 'ca-app-pub-3940256099942544/1033173712'; //google test
+
 
   graphData: any[] = [];
   graphYears: any[] = [];
 
   timesCalculated : number = 0;
 
- 
+  isCalculating: boolean = false;
 
-  constructor(public navCtrl: NavController, private adMobFree: AdMobFree) {
+  modal : any;
+  constructor(public navCtrl: NavController, public adMobFree: AdMobFree, public modalCtrl: ModalController) {
+    this.modal = this.modalCtrl.create(ModalPage, {home: this} , {showBackdrop: true});
+    
 
-    const interstitialConfig : AdMobFreeInterstitialConfig = {
-      id: 'ca-app-pub-4616242313521531/4260732308',
-      isTesting : true,
+  }
+
+  presentModal() {
+    this.modal.present();
+  }
+
+  
+  closeModal(){
+    this.modal.dismiss();
+
+  }
+
+
+  ionViewDidEnter(){
+
+    const bannerConfig : AdMobFreeBannerConfig = {
+      id: this.androidId,
+      isTesting : false,
       autoShow : true
   
     }
 
-    this.adMobFree.interstitial.config(interstitialConfig);
+    this.adMobFree.banner.config(bannerConfig);
 
-    this.adMobFree.interstitial.prepare().then(() => {
+    this.adMobFree.banner.prepare().then(() => {
+      // this.adMobFree.banner.show();
 
     }).catch(e => console.log(e));
 
+    // this.initiateInterstitialAd();
+
   }
   
-  calculate(){
-    // var interest = this.interest;
+initiateInterstitialAd(){
+  
+  const interstitialConfig : AdMobFreeInterstitialConfig = {
+    id: this.interstitialId,
+    isTesting : false,
+    autoShow : false
 
+  }
+
+  this.adMobFree.interstitial.config(interstitialConfig);
+
+  this.adMobFree.interstitial.prepare().then(() => {
+
+  }).catch(e => console.log(e));
+
+
+
+}
+
+  calculate() {
     var totalFromStartValue = this.startValue * (Math.pow( 1+ ( this.interest/100 ), this.numberOfYears ));
     
     var totalFromMonthlySavings = (this.monthlySavings * 12) * (Math.pow(1+(this.interest/100),5)-1)/(this.interest/100);
 
-    // this.totalAmount = this.startValue * ( 1+ (this.interest*0.01))
-    console.log(totalFromStartValue);
-    console.log(totalFromMonthlySavings);
-
     this.totalAmount = Math.round(totalFromStartValue + totalFromMonthlySavings); 
-
-
   }
 
   calculateTotalAmountFromValues(numberOfYears)
@@ -77,33 +119,36 @@ export class HomePage {
     var totalFromMonthlySavings = (this.monthlySavings * 12) * calculatedInterestForMonthlySavings;
 
 
-    this.timesCalculated++;
 
-    if (this.timesCalculated % 3 === 0)
-    {
-      this.showAdd();  
-    }
     return Math.round(totalFromStartValue + totalFromMonthlySavings); 
 
   }
 
-  showAdd(){
-    this.adMobFree.interstitial.prepare().then(() => {
-      this.adMobFree.interstitial.show();
-    }).catch(e => console.log(e));
+  // showAdd(){
+  //   this.initiateInterstitialAd();
+  //   if(this.adMobFree.interstitial.isReady())
+  //   {
+  //     this.adMobFree.interstitial.show();
 
-  }
+  //   }
+
+  // }
 
 
   calculateNumberOfYears(){
   
-    if (this.monthlySavings <= 0 ||this.monthlySavings === undefined)
+    if (this.monthlySavings < 100 ||this.monthlySavings === undefined)
+    {
+      this.presentModal();
       return;
+    }
+      
 
     document.getElementById("dollar").className = 'hide';
 
     var startValue = this.startValue;
     var interest = this.interest;
+    
     if(this.startValue === 0 || this.startValue === undefined)
     {
       startValue = 1
@@ -111,24 +156,27 @@ export class HomePage {
     }
     
 
-    if(this.interest === undefined ||this.interest === 0)
+    if(this.interest === undefined || this.interest === 0 || this.interest < 0)
       interest = 0
 
     if(interest > 0)
     {
+
         var convertedStartValue = startValue * (interest/100) + (this.monthlySavings * 12);
     
         var convertedMillion = 1000000 * (interest/100) + (this.monthlySavings * 12);
     
         var years = (Math.log(convertedMillion/convertedStartValue)/(Math.log(1+(interest/100))));
     
-        this.numberOfYears = Math.floor(years) 
+        this.numberOfYears = Math.floor(years)
+        
         this.numberOfMonths = Math.round((years%1)*12);
     
         this.numberOfYearsCeiling = Math.ceil(years);
         
     }
     else{
+
       var years2 = (1000000 - this.startValue)/(this.monthlySavings*12);
       this.numberOfYears = Math.floor(years2) 
       this.numberOfMonths = Math.round((years2%1)*12);
@@ -146,21 +194,28 @@ export class HomePage {
   }
 
   buildData(){
-this.graphData = [];
-this.graphYears= [];
+    this.graphData = [];
+    this.graphYears= [];
+
+
+    this.timesCalculated = this.timesCalculated +1;
+
+    if(this.timesCalculated % 3 == 0)
+    {
+      // this.showAdd();
+    }
 
     for(var i=1; i <= this.numberOfYearsCeiling; i++)
     {
-      this.graphData.push(
-        this.calculateTotalAmountFromValues(i)
-      )
+      this.graphData.push(this.calculateTotalAmountFromValues(i))
       this.graphYears.push(i);
-
-      
     }
   }
 
   createChart(){
+    this.isCalculating = false;
+
+
     // 125, 206, 160
     var ctx = document.getElementById("myChart");
 
